@@ -10,24 +10,27 @@
   </div>
 </form>
 <div class="mb-3">
-<button type="button" (click)="inserirVideo()" class="btn btn-primary">Inserir vídeo</button>
+  <button type="button" (click)="inserirVideo()" class="btn btn-primary">Inserir vídeo</button>
 </div>
 <div class="container">
 
-<table class="table" ngDefaultControl [(ngModel)]="videos">
-  <thead class="thead-dark">
-  <tr>
-    <th scope="col">Id</th>
-    <th scope="col">Titulo</th>
-    <th scope="col">Link</th>
-    <th scope="col"></th>
-  </tr>
-  </thead>
-  <tbody *ngFor="let items of videos">
-  <tr>
-    <td>{{items.id}}</td>
-    <td>{{items.titulo}}</td>
-    <td>{{items.link}}</td>
+  <table class="table" ngDefaultControl [(ngModel)]="videos">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">Titulo</th>
+      <th scope="col">Link</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let items of videos">
+    <tr id="{{items.id}}">
+
+      <a href="#exampleModal+{{items.id}}" class="btn-link"  data-toggle="modal" data-target="#exampleModal+{{items.id}}" (click)="mostrarMarcacao(items.id)">
+
+        <td>{{items.titulo}}</td>
+      </a>
+      <td>{{items.link}}</td>
       <td>
         <button type="button" (click)="deletar(items)" class="btn btn-secondary">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -36,7 +39,48 @@
           </svg>
         </button>
       </td>
-  </tr>
-  </tbody>
-</table>
+    </tr>
+    <div class="modal" id="exampleModal+{{items.id}}" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{items.titulo}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <iframe width="560" height="315" [src]="items.link | safe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div *ngFor="let marc of marcacoes">
+        <td>{{marc.nome}}</td>
+        <td>{{marc.tempo_inicio}}</td>
+        <td>{{marc.tempo_fim}}</td>
+        <td><button type="button" (click)="deletarMarcacao(items, marc)" class="btn btn-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+          </svg></button>
+      </div><td>
+      <form [formGroup]="marcacoesForm">
+        <div class="input-group mb-3">
+          <input formControlName="nome" ngDefaultControl type="text" placeholder="Nome da marcação">
+        </div>
+        <div class="input-group mb-3">
+          <input formControlName="tempo_inicio" ngDefaultControl type="text" placeholder="Início da marcação">
+        </div>
+        <div class="input-group mb-3">
+          <input formControlName="tempo_fim" ngDefaultControl type="text" placeholder="Final da marcação">
+        </div>
+        <div class="mb-3">
+          <button type="button" (click)="inserirMarcacao(items.id)" class="btn btn-primary">Inserir Marcação</button>
+        </div>
+
+      </form></td>
+          </div>
+      </div>
+      </div>
+    </div>
+    </tbody>
+
+  </table>
 </div>

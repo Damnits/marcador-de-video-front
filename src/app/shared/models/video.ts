@@ -1,5 +1,5 @@
 export class Video{
-  id?: number;
+  id!: number;
   titulo?: string;
-  link?: string;
+  link!: string;
 }

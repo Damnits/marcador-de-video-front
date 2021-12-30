@@ -8,13 +8,15 @@ import { CadastrarVideoComponent } from './video/cadastrar-video/cadastrar-video
 import { ListarVideoComponent } from './video/listar-video/listar-video.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { SafePipe } from './safe-pipe.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     VideoComponent,
     CadastrarVideoComponent,
-    ListarVideoComponent
+    ListarVideoComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
